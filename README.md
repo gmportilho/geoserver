@@ -1,4 +1,4 @@
-# GEOSERVER 2.20.4 WITH ECW EXTENSION
+# GEOSERVER 2.26.2 WITH ECW EXTENSION
 
 ![Geoserver.org](https://upload.wikimedia.org/wikipedia/commons/9/9e/GeoServer_logo.png)
 
