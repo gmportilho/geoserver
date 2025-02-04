@@ -74,7 +74,7 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
 ##
 ## PLUGINS INSTALLATION if need
 ##
-ENV GEOSERVER_VERSION 2.20.4
+ENV GEOSERVER_VERSION 2.26.2
 ENV GEOSERVER_URL http://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_VERSION
 #
 ## Get GeoServer from source
