@@ -1,5 +1,5 @@
-FROM ubuntu:18.04
-MAINTAINER Maxim Romanenko<romanenko@urban-its.ru>
+FROM ubuntu:24.04
+
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,6 +14,14 @@ RUN apt-get -qq update \
     unzip \
     software-properties-common \
     openjdk-11-jre-headless \
+    nano \  
+    locales \  
+    fonts-dejavu \ 
+    fonts-liberation \ 
+    fonts-freefont-ttf \  
+    ttf-mscorefonts-installer \ 
+    && locale-gen pt_BR.UTF-8 \ 
+    && update-locale LANG=pt_BR.UTF-8 \ 
     && add-apt-repository ppa:ubuntugis/ubuntugis-unstable && apt-get update\
     && apt-get -qq -y install \
     g++ \
@@ -74,7 +82,7 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
 ##
 ## PLUGINS INSTALLATION if need
 ##
-ENV GEOSERVER_VERSION 2.26.2
+ENV GEOSERVER_VERSION 2.20.4
 ENV GEOSERVER_URL http://sourceforge.net/projects/geoserver/files/GeoServer/$GEOSERVER_VERSION
 #
 ## Get GeoServer from source
@@ -99,6 +107,17 @@ ENV PLUGIN wps
 RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/2.20.4/extensions/geoserver-2.20.4-wps-plugin.zip/download -O ~/geoserver-$PLUGIN-plugin.zip && \
     unzip -o ~/geoserver-$PLUGIN-plugin.zip -d /opt/geoserver/webapps/geoserver/WEB-INF/lib/ && \
     rm ~/geoserver-$PLUGIN-plugin.zip
+
+# Copia os arquivos necessários
+
+RUN cp -r /mnt/Geodados/XML/JalesC2245_Geodados /opt/geoserver/data_dir/workspaces/ && \
+    cp -r /mnt/Geodados/XML/icons /opt/geoserver/data_dir/styles/
+
+    RUN cp -r /usr/share/fonts/truetype/dejavu /opt/geoserver/data_dir/styles/fonts/ && \
+    cp -r /usr/share/fonts/truetype/liberation /opt/geoserver/data_dir/styles/fonts/ && \
+    cp -r /usr/share/fonts/truetype/freefont /opt/geoserver/data_dir/styles/fonts/ && \
+    cp -r /usr/share/fonts/truetype/msttcorefonts /opt/geoserver/data_dir/styles/fonts/ && \
+    cp -r /usr/share/fonts/truetype/custom /opt/geoserver/data_dir/styles/fonts/
 
 # Expose GeoServer's default port
 EXPOSE 8080
