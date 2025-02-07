@@ -1,4 +1,6 @@
-FROM ubuntu:24.04
+FROM ubuntu:18.04
+RUN sed -i 's/archive.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && \
+    sed -i 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 
 
 ENV DEBIAN_FRONTEND noninteractive
